@@ -1,8 +1,8 @@
 # CPU-Monitor
 
-IDE: VS Code
-Necessário instalar:
-express - npm install express
-socket.io - npm install socket.io
+IDE: VS Code<br>
+Necessário instalar:<br>
+express - npm install express<br>
+socket.io - npm install socket.io<br>
 os-utils - npm install os-utils
 
