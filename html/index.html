@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> CPU Monitor</title>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] })
+        google.charts.setOnLoadCallback(drawLineChart)
+
+        let chartLoaded = false
+        let histogram = []
+
+        function drawLineChart() {
+            let data = new google.visualization.DataTable()
+            data.addColumn('number', 'Time')
+            data.addColumn('number', 'CPU')
+
+            data.addRows(histogram)
+
+            let options = {
+
+                title: 'Real time CPU Monitor',
+                height: 400,
+                width: 2000,
+
+                //xAxis
+                hAxis: {
+                    title: 'Time (s)',
+                    titleTextStyle: {
+                        color: '#000',
+                        italic: true,
+                        bold: true,
+                    },
+                },
+
+                //yAxis
+                vAxis: {
+                    title: 'CPU Usage (%)',                   
+                    titleTextStyle:{
+                        color: '#000',
+                        italic: true,
+                        bold: true,
+                    },
+                    viewWindow: {
+                        min: 0,
+                        max: 100,
+                    },
+                },
+
+            };
+
+            let chart = new google.visualization.LineChart(document.getElementById('chart_cpumonitor'));
+            chart.draw(data, options);
+            chartLoaded = true;
+        }
+
+        let socket = io();
+        socket.on('cpu histogram', function (cpuHistogram) {
+            
+            histogram = cpuHistogram
+
+            if(chartLoaded){
+                drawLineChart()
+            }
+
+        })
+
+    </script>
+
+</head>
+
+<body>
+    
+    <div id="chart_cpumonitor"></div>
+
+</body>
+
+</html>
