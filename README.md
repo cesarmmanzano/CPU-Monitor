@@ -1,8 +1,6 @@
-# CPU-Monitor
+# CPU Monitor
 
-IDE: VS Code<br>
-
-Gráfico: Uso do Google Charts<br>
+Dynamic CPU Monitor<br>
 
 Necessário instalar:<br>
   >express - npm install express<br>
